@@ -35,7 +35,13 @@ class StoryEngine:
         conversation = []
         conversation.append({'role': 'system', 'content': "You are an AI that generates original, thought-provoking, and inspiring quotes. Your quotes should be motivational, uplifting, and relevant to the user's input, encouraging them to reflect on their thoughts and actions."})
         conversation.append({'role': 'user', 'content': prompt})
-        response = client.chat.completions.create(messages=conversation, model="gpt-3.5-turbo")
-
-        result = response.choices[0].message.content
-        return result
+        story_response = client.chat.completions.create(messages=conversation, model="gpt-3.5-turbo")
+        story = story_response.choices[0].message.content
+        conversation.append({'role': 'user', 'content': "Write a title for this story followed by the following hashtags in one line without any quotation: #shorts #daily #motivation"})
+        title_response = client.chat.completions.create(messages=conversation, model="gpt-3.5-turbo")
+        title = title_response.choices[0].message.content
+        
+        return {
+            "story": story,
+            "title": title
+        }

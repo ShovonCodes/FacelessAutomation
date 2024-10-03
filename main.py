@@ -34,18 +34,19 @@ try:
     video_engine.generate_input_video_temp()
 
     # # Creates a story based on the provided category
-    # story = story_engine.generate_story()
-    # # story = "This should give you the desired result where the video runs for 1 second longer than the audio"
+    story_result = story_engine.generate_story()
+    story = story_result['story']
+    story_title = story_result['title']
 
     # # Converts the text story into audio and srt and stores them in the temporary directory
-    # timestamp = audio_engine.text_to_speech_and_timestamp(story, input_audio_file_path)
-    # audio_engine.timestamp_to_srt(timestamp, input_srt_file_path)
+    timestamp = audio_engine.text_to_speech_and_timestamp(story, input_audio_file_path)
+    audio_engine.timestamp_to_srt(timestamp, input_srt_file_path)
     
     # # Combines the input video, audio and srt and generates a output video
-    # video_engine.generate_output_video(input_video_file_path, input_audio_file_path, input_srt_file_path, output_video_file_path, font_name)
+    video_engine.generate_output_video(input_video_file_path, input_audio_file_path, input_srt_file_path, output_video_file_path, font_name)
     
     # # Uploads the output video to YouTube
-    youtube_engine.upload_video('First automated video! #shorts #motivation #ai', 'Subscribe to this channel for more videos like this!')
+    youtube_engine.upload_video(story_title, 'Subscribe to this channel for more videos like this!')
     
     clean_up()
 except Exception as e:

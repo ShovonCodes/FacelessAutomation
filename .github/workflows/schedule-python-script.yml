@@ -1,9 +1,10 @@
 name: Faceless automation
 
 on:
-  # schedule:
-  #   # Run the workflow every 6 hours
-  #   - cron: '0 */6 * * *'
+  schedule:
+    # Run the workflow every 6 hours
+    - cron: '0 9 * * *'   # Runs at 9 AM UTC (3 PM GMT +6)
+    - cron: '0 16 * * *'  # Runs at 4 PM UTC (10 PM GMT +6)
   workflow_dispatch: # Allows manual trigger
 
 jobs:

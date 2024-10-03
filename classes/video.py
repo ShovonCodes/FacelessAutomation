@@ -52,7 +52,7 @@ class VideoEngine:
             for file_path in file_paths:
                 f.write(f"file '{file_path}'\n")
 
-    def concat_videos(self, txt_file="files.txt", output_file="output_video.mp4"):
+    def concat_videos(self, txt_file="files.txt", output_file="input_video.mp4"):
         txt_path = f"{self.temp_dir}/{txt_file}"
         video_path = f"{self.temp_dir}/{output_file}"
     
