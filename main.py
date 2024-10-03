@@ -45,7 +45,7 @@ try:
     # video_engine.generate_output_video(input_video_file_path, input_audio_file_path, input_srt_file_path, output_video_file_path, font_name)
     
     # # Uploads the output video to YouTube
-    # youtube_engine.upload_video('First automated video! #shorts #motivation #ai', 'Subscribe to this channel for more videos like this!')
+    youtube_engine.upload_video('First automated video! #shorts #motivation #ai', 'Subscribe to this channel for more videos like this!')
     
     clean_up()
 except Exception as e:

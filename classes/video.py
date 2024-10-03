@@ -57,7 +57,7 @@ class VideoEngine:
         video_path = f"{self.temp_dir}/{output_file}"
     
         ffmpeg_command = ["ffmpeg", "-f", "concat", "-safe", "0", "-i", txt_path, "-c", "copy", video_path, "-y"]
-        subprocess.run(ffmpeg_command, check=True)
+        subprocess.run(ffmpeg_command, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, check=True)
 
     def generate_input_video_temp(self):
         print('Generating input video')
@@ -65,8 +65,7 @@ class VideoEngine:
         downloaded_files = self.download_videos(urls)
         self.generate_file_list(downloaded_files)
         self.concat_videos()
-        print('Video concatenation done!')
-        print('Temp dir: ', os.listdir('tmp'))
+        print("Input video generation completed!")
     
     def generate_input_video(self):
         videos = self.select_random_videos()
