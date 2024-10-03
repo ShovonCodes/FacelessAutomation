@@ -63,6 +63,10 @@ class VideoEngine:
         print('Downloaded files: ', downloaded_files)
         print('LIST: ', os.listdir(self.temp_dir))
         self.generate_file_list(downloaded_files)
+        with open(f'{self.temp_dir}/files.txt', 'r') as file:
+            contents = file.read()
+        print('## THIS IS WHAT WE HAVE INSIDE: ', contents)
+        print('File list generated!')
         self.concat_videos()
         print('Video concatenation done!')
         print('List directory: ', os.listdir())
