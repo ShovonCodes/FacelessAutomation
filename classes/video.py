@@ -2,7 +2,6 @@ import os
 import random
 import requests
 import subprocess
-from pathlib import Path
 
 video_urls = [
         "http://raw.githubusercontent.com/shovon588/assets/master/1.mp4",
@@ -15,13 +14,6 @@ video_urls = [
         "http://raw.githubusercontent.com/shovon588/assets/master/8.mp4",
         "http://raw.githubusercontent.com/shovon588/assets/master/9.mp4",
     ]
-
-def file_exists(filepath):
-    path = Path(filepath)
-    if path.is_file() and path.suffix == '.mp4':
-        print(f'File {filepath} exists!')
-    else:
-        print(f'File {filepath} does not exist!')
 
 class VideoEngine:
     def __init__(self, asset_dir, temp_dir = 'tmp'):
@@ -61,26 +53,19 @@ class VideoEngine:
                 f.write(f"file '{file_path}'\n")
 
     def concat_videos(self, txt_file="files.txt", output_file="output_video.mp4"):
-        ffmpeg_command = f"ffmpeg -f concat -safe 0 -i {self.temp_dir}/{txt_file} -c copy {self.temp_dir}/{output_file} -y"
-        subprocess.run(ffmpeg_command, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, check=True)
+        txt_path = f"{self.temp_dir}/{txt_file}"
+        video_path = f"{self.temp_dir}/{output_file}"
+    
+        ffmpeg_command = ["ffmpeg", "-f", "concat", "-safe", "0", "-i", txt_path, "-c", "copy", video_path, "-y"]
+        subprocess.run(ffmpeg_command, check=True)
 
     def generate_input_video_temp(self):
         print('Generating input video')
         urls = random.sample(video_urls, 6)
         downloaded_files = self.download_videos(urls)
-        print('Downloaded files: ', downloaded_files)
-        
-        for file in downloaded_files:
-            file_exists(file)
-        print('LIST: ', os.listdir(self.temp_dir))
         self.generate_file_list(downloaded_files)
-        with open(f'{self.temp_dir}/files.txt', 'r') as file:
-            contents = file.read()
-        print('## THIS IS WHAT WE HAVE INSIDE: ', contents)
-        print('File list generated!')
         self.concat_videos()
         print('Video concatenation done!')
-        print('List directory: ', os.listdir())
         print('Temp dir: ', os.listdir('tmp'))
     
     def generate_input_video(self):
