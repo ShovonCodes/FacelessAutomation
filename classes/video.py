@@ -57,9 +57,11 @@ class VideoEngine:
         subprocess.run(ffmpeg_command, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, check=True)
 
     def generate_input_video_temp(self):
-        print('Generating input video! Temporary one!')
+        print('Generating input video')
         urls = random.sample(video_urls, 6)
         downloaded_files = self.download_videos(urls)
+        print('Downloaded files: ', downloaded_files)
+        print('LIST: ', os.listdir(self.temp_dir))
         self.generate_file_list(downloaded_files)
         self.concat_videos()
         print('Video concatenation done!')

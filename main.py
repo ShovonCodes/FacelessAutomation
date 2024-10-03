@@ -23,7 +23,9 @@ def clean_up():
 try:
     # Creates a temporary directory
     os.makedirs(temp_dir_path, exist_ok=True)
-    
+
+    if (os.path.isdir(temp_dir_path)):
+        print('YES! DIRECTORY EXISTS!')
     # Initiate engines
     audio_engine = AudioEngine(voices['grandpa'])
     video_engine = VideoEngine('materials/motivation', temp_dir_path)

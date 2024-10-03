@@ -7,7 +7,7 @@ load_dotenv()
 
 api_key = os.getenv('OPENAI_API_KEY')
 
-print('tHE API kEY: ', api_key)
+print('THE API KEY: ', api_key)
 
 topics = ['Life Lessons', 'Health & Wellness', 'Relationships', 'Mindfulness & Meditation', 'Success & Motivation', 'Happiness & Positivity', 'Courage & Fear', 'Gratitude & Appreciation', 'Wisdom & Knowledge', 'Change & Adaptability']
 values = ['uplifting', 'empowering', 'reflective', 'humorous']
