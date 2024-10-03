@@ -2,6 +2,7 @@ import os
 import random
 import requests
 import subprocess
+from pathlib import Path
 
 video_urls = [
         "http://raw.githubusercontent.com/shovon588/assets/master/1.mp4",
@@ -14,6 +15,13 @@ video_urls = [
         "http://raw.githubusercontent.com/shovon588/assets/master/8.mp4",
         "http://raw.githubusercontent.com/shovon588/assets/master/9.mp4",
     ]
+
+def file_exists(filepath):
+    path = Path(filepath)
+    if path.is_file() and path.suffix == '.mp4':
+        print(f'File {filepath} exists!')
+    else:
+        print(f'File {filepath} does not exist!')
 
 class VideoEngine:
     def __init__(self, asset_dir, temp_dir = 'tmp'):
@@ -61,6 +69,9 @@ class VideoEngine:
         urls = random.sample(video_urls, 6)
         downloaded_files = self.download_videos(urls)
         print('Downloaded files: ', downloaded_files)
+        
+        for file in downloaded_files:
+            file_exists(file)
         print('LIST: ', os.listdir(self.temp_dir))
         self.generate_file_list(downloaded_files)
         with open(f'{self.temp_dir}/files.txt', 'r') as file:
