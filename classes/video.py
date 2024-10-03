@@ -53,8 +53,8 @@ class VideoEngine:
                 f.write(f"file '{file_path}'\n")
 
     def concat_videos(self, txt_file="files.txt", output_file="output_video.mp4"):
-        ffmpeg_command = f"ffmpeg -f concat -safe 0 -i {self.temp_dir}/{txt_file} -c copy {output_file} -y"
-        subprocess.run(ffmpeg_command, shell=True)
+        ffmpeg_command = f"ffmpeg -f concat -safe 0 -i {self.temp_dir}/{txt_file} -c copy {self.temp_dir}/{output_file} -y"
+        subprocess.run(ffmpeg_command, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, check=True)
 
     def generate_input_video_temp(self):
         print('Generating input video! Temporary one!')
