@@ -7,23 +7,32 @@ load_dotenv()
 
 api_key = os.getenv('OPENAI_API_KEY')
 
-print("THE FAKE API KEY: ", api_key)
-topics = ['Life Lessons', 'Health & Wellness', 'Relationships', 'Mindfulness & Meditation', 'Success & Motivation', 'Happiness & Positivity', 'Courage & Fear', 'Gratitude & Appreciation', 'Wisdom & Knowledge', 'Change & Adaptability']
-values = ['uplifting', 'empowering', 'reflective', 'humorous']
+topics = [
+    'Life Lessons from Ancient Wisdom',
+    'Overcoming Challenges and Adversity',
+    'The Power of Kindness and Compassion',
+    'Finding Inner Peace and Mindfulness',
+    'The Value of Honesty and Integrity',
+    'Wisdom from Famous Historical Figures',
+    'The Importance of Gratitude and Contentment',
+    'Learning from Failures and Mistakes',
+    'The Role of Love and Relationships in Life',
+    'The Value of Time and Patience'
+    ]
 
 class StoryEngine:
     def generate_prompt(self):
         print('Creating prompt!')
-
+        topic = pick_random(topics)
+        print('Writing prompt on topic: ', topic)
         prompt = f"""
-            Generate motivational quotes based story focused on {pick_random(topics)}. Set a tone that is {pick_random(values)}, 
-            ensuring it resonates with the intended audience of all ages. Draw inspiration from famous quotes that motivates people, 
-            while infusing a touch of unique style. Prioritize quotes that are concise, impactful, and filled with actionable advice. 
-            Emphasize values and encourage positivity.
-
-            Keeping the above in mind, the story should be around 300 characters. Only output the actual story and 
-            do not respond with any header of footer note.
-        """
+                Create a short, engaging, and inspiring story on the topic "{topic}".
+                The story should convey a powerful moral lesson, be easy to understand for viewers of all ages, 
+                and evoke a sense of hope and resilience. Use simple language, make the story relatable, 
+                and include a strong takeaway that encourages perseverance in the face of difficulties. 
+                The response should only include the story, with no additional explanations or notes.
+                The story should not be more than 380 characters.
+                """
         return prompt
 
     def generate_story(self):
@@ -37,7 +46,15 @@ class StoryEngine:
         conversation.append({'role': 'user', 'content': prompt})
         story_response = client.chat.completions.create(messages=conversation, model="gpt-3.5-turbo")
         story = story_response.choices[0].message.content
-        conversation.append({'role': 'user', 'content': "Write a title for this story followed by the following hashtags in one line without any quotation: #shorts #daily #motivation"})
+        conversation.append({
+            'role': 'user', 
+            'content': """
+                        Create a title for this story followed by relevant hashtags, without using any quotation marks, 
+                        special characters, or additional text. The output should be formatted as: "Title [space] #Hashtag1 #Hashtag2 #Hashtag3". 
+                        Make sure the title and hashtags are on the same line, with no quotation marks or additional formatting. 
+                        Only include the title and hashtags.
+                        """
+                    })
         title_response = client.chat.completions.create(messages=conversation, model="gpt-3.5-turbo")
         title = title_response.choices[0].message.content
         

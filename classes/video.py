@@ -3,6 +3,9 @@ import random
 import requests
 import subprocess
 
+def generate_video_url(video_number):
+    return f"http://raw.githubusercontent.com/shovon588/assets/master/{video_number}.mp4",
+
 video_urls = [
         "http://raw.githubusercontent.com/shovon588/assets/master/1.mp4",
         "http://raw.githubusercontent.com/shovon588/assets/master/2.mp4",
@@ -13,17 +16,45 @@ video_urls = [
         "http://raw.githubusercontent.com/shovon588/assets/master/7.mp4",
         "http://raw.githubusercontent.com/shovon588/assets/master/8.mp4",
         "http://raw.githubusercontent.com/shovon588/assets/master/9.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/10.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/11.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/12.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/13.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/14.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/15.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/16.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/17.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/18.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/19.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/20.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/21.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/22.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/23.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/24.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/25.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/26.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/27.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/28.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/29.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/30.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/31.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/32.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/33.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/34.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/35.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/36.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/37.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/38.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/39.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/40.mp4",
     ]
 
 class VideoEngine:
-    def __init__(self, asset_dir, temp_dir = 'tmp'):
-        self.asset_dir = asset_dir
+    def __init__(self, temp_dir = 'tmp'):
         self.temp_dir = temp_dir
-        self.text_file_path = f"{self.temp_dir}/text.txt"
 
-    def select_random_videos(self):
-        files = os.listdir(self.asset_dir)
-        return random.sample(files, 7)
+    def select_random_videos(self, count):
+        return random.sample(video_urls, count)
 
     def download_videos(self, urls):
         # Create the output folder if it doesn't exist
@@ -59,36 +90,13 @@ class VideoEngine:
         ffmpeg_command = ["ffmpeg", "-f", "concat", "-safe", "0", "-i", txt_path, "-c", "copy", video_path, "-y"]
         subprocess.run(ffmpeg_command, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, check=True)
 
-    def generate_input_video_temp(self):
+    def generate_input_video(self):
         print('Generating input video')
-        urls = random.sample(video_urls, 6)
+        urls = self.select_random_videos(7)
         downloaded_files = self.download_videos(urls)
         self.generate_file_list(downloaded_files)
         self.concat_videos()
         print("Input video generation completed!")
-    
-    def generate_input_video(self):
-        videos = self.select_random_videos()
-        with open(self.text_file_path, 'w') as f:
-            for video in videos:
-                absolute_path = os.path.abspath(f"{self.asset_dir}/{video}")
-                f.write(f"file '{absolute_path}'\n")
-
-        ffmpeg_command = [
-            'ffmpeg',
-            '-f', 'concat',
-            '-safe', '0',
-            '-i', self.text_file_path,
-            '-c', 'copy',
-            f'{self.temp_dir}/input_video.mp4',
-            '-y'
-        ]
-
-        try:
-            subprocess.run(ffmpeg_command, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, check=True)
-            print("Input video generation completed!")
-        except subprocess.CalledProcessError as e:
-            print(f"Error during video concatenation: {e}")
 
     def generate_output_video(self, video_path, audio_path, srt_path, output_path, font_name):
         """

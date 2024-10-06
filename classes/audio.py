@@ -10,7 +10,7 @@ load_dotenv()
 api_key = os.getenv('ELEVENLABS_API_KEY')
 
 class AudioEngine:
-    def __init__(self, voice_id = '21m00Tcm4TlvDq8ikWAM'):
+    def __init__(self, voice_id = 'NOpBlnGInO9m6vDvFkFC'):
         self.voice_id = voice_id
         
     def text_to_speech_and_timestamp(self, text, audio_path):
@@ -69,7 +69,7 @@ class AudioEngine:
         end_time = None
 
         for i, char in enumerate(characters):
-            if char != " ":
+            if char not in [" ", ".", ",", '"']:
                 word += char
                 if start_time is None:
                     start_time = character_start_times_seconds[i]

@@ -20,21 +20,43 @@ credentials = Credentials(
 
 youtube = build('youtube', 'v3', credentials=credentials)
 
+tags = [
+    "inspirational stories", 
+    "life lessons", 
+    "moral values", 
+    "motivational quotes", 
+    "wisdom", 
+    "AI storytelling", 
+    "overcoming challenges", 
+    "positive thinking", 
+    "personal growth", 
+    "ancient wisdom", 
+    "motivational stories", 
+    "self improvement", 
+    "daily inspiration", 
+    "life advice", 
+    "timeless wisdom"
+]
+
 class YoutubeEngine:
     def __init__(self, video_file_path):
         self.video_file_path = video_file_path
         
         
-    def upload_video(self, title, description):
+    def upload_video(self, title):
         media = MediaFileUpload(self.video_file_path, chunksize=-1, resumable=True)
 
         # Prepare the request body
         request_body = {
             'snippet': {
                 'title': title,
-                'description': description,
+                'tags': tags
             },
-            'status': { 'privacyStatus': 'public' }
+            'status': {
+                'privacyStatus': 'public',
+                'madeForKids': False,
+                'selfDeclaredMadeForKids': False
+                }
         }
 
         # Call the API to upload the video

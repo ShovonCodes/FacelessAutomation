@@ -26,12 +26,12 @@ try:
 
     # Initiate engines
     audio_engine = AudioEngine(voices['grandpa'])
-    video_engine = VideoEngine('materials/motivation', temp_dir_path)
+    video_engine = VideoEngine(temp_dir_path)
     story_engine = StoryEngine()
     youtube_engine = YoutubeEngine(output_video_file_path)
     
     # Joins existing video and creates an input video and puts it inside the temporary directory
-    video_engine.generate_input_video_temp()
+    video_engine.generate_input_video()
 
     # # Creates a story based on the provided category
     story_result = story_engine.generate_story()
@@ -46,7 +46,7 @@ try:
     video_engine.generate_output_video(input_video_file_path, input_audio_file_path, input_srt_file_path, output_video_file_path, font_name)
     
     # # Uploads the output video to YouTube
-    youtube_engine.upload_video(story_title, 'Subscribe to this channel for more videos like this!')
+    youtube_engine.upload_video(story_title)
     
     clean_up()
 except Exception as e:
