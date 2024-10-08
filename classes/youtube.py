@@ -38,6 +38,8 @@ tags = [
     "timeless wisdom"
 ]
 
+description = "Welcome to Wise Grandpa! Here you'll find daily doses of wisdom, inspirational quotes, and stories with valuable life lessons. Be sure to like, comment, and subscribe for more! #shorts #wisegrandpa #motivation #daily"
+
 class YoutubeEngine:
     def __init__(self, video_file_path):
         self.video_file_path = video_file_path
@@ -50,7 +52,9 @@ class YoutubeEngine:
         request_body = {
             'snippet': {
                 'title': title,
-                'tags': tags
+                'description': description,
+                'tags': tags,
+                'categoryId': '24' # Entertainment
             },
             'status': {
                 'privacyStatus': 'public',
