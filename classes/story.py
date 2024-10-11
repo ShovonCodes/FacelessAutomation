@@ -8,7 +8,6 @@ load_dotenv()
 api_key = os.getenv('OPENAI_API_KEY')
 
 topics = [
-    'Life Lessons from Ancient Wisdom',
     'Overcoming Challenges and Adversity',
     'The Power of Kindness and Compassion',
     'Finding Inner Peace and Mindfulness',
@@ -17,7 +16,19 @@ topics = [
     'The Importance of Gratitude and Contentment',
     'Learning from Failures and Mistakes',
     'The Role of Love and Relationships in Life',
-    'The Value of Time and Patience'
+    'The Value of Time and Patience',
+    'The Ripple Effect of Small Good Deeds',
+    'Finding Strength in Vulnerability',
+    'Learning Patience in a Fast-Paced World',
+    'The Power of Self-Discipline and Commitment',
+    'Life Lessons from Ancient Wisdom',
+    'Leadership through Compassion',
+    'Acts of Forgiveness and Letting Go',
+    'The Beauty of Simplicity',
+    'Navigating the Digital World with Integrity',
+    'Understanding Empathy and Emotional Intelligence',
+    'Learning to Let Go of Control',
+    'Embracing Failure as a Step Toward Success',
     ]
 
 class StoryEngine:
@@ -31,7 +42,7 @@ class StoryEngine:
                 and evoke a sense of hope and resilience. Use simple language, make the story relatable, 
                 and include a strong takeaway that encourages perseverance in the face of difficulties. 
                 The response should only include the story, with no additional explanations or notes.
-                The story should not be more than 380 characters.
+                The story should not be more than 340 characters.
                 """
         return prompt
 

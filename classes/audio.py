@@ -1,6 +1,7 @@
 import os
 import json
 import base64
+import random
 import requests
 from dotenv import load_dotenv
 from classes.utils import convert_to_srt_time
@@ -9,8 +10,15 @@ load_dotenv()
 
 api_key = os.getenv('ELEVENLABS_API_KEY')
 
+bg_music_urls = [
+    "http://raw.githubusercontent.com/shovon588/assets/master/background-music/1.mp3",
+    "http://raw.githubusercontent.com/shovon588/assets/master/background-music/2.mp3",
+    "http://raw.githubusercontent.com/shovon588/assets/master/background-music/3.mp3",
+]
+
 class AudioEngine:
-    def __init__(self, voice_id = 'NOpBlnGInO9m6vDvFkFC'):
+    def __init__(self, temp_dir = 'tmp', voice_id = 'NOpBlnGInO9m6vDvFkFC'):
+        self.temp_dir = temp_dir
         self.voice_id = voice_id
         
     def text_to_speech_and_timestamp(self, text, audio_path):
@@ -96,3 +104,19 @@ class AudioEngine:
         with open(srt_path, "w") as file:
             file.write(srt_content)
             print('Subtitle saved as SRT!')
+
+
+    def download_bg_music(self):
+        print('Downloading background music!')
+        url = random.choice(bg_music_urls)
+        audio_name = f"bg_music.mp3"
+        absolute_path = os.path.abspath(f"{self.temp_dir}/{audio_name}")
+        print(f"Downloading {url}...")
+
+        with requests.get(url, stream=True) as r:
+            r.raise_for_status()
+            with open(absolute_path, 'wb') as f:
+                for chunk in r.iter_content(chunk_size=8192):
+                    if chunk:
+                        f.write(chunk)
+        print('Background music download complete!')
