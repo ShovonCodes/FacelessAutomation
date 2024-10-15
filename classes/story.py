@@ -37,12 +37,11 @@ class StoryEngine:
         topic = pick_random(topics)
         print('Writing prompt on topic: ', topic)
         prompt = f"""
-                Create a short, engaging, and inspiring story on the topic "{topic}".
-                The story should convey a powerful moral lesson, be easy to understand for viewers of all ages, 
-                and evoke a sense of hope and resilience. Use simple language, make the story relatable, 
-                and include a strong takeaway that encourages perseverance in the face of difficulties. 
-                The response should only include the story, with no additional explanations or notes.
-                The story should not be more than 340 characters.
+                Create a short, witty, and playful story on the topic '{topic}' that has an unexpected twist or clever punchline. 
+                The story should be light-hearted but meaningful, using humor or a bit of cheekiness to keep it fun while delivering a powerful moral. 
+                Avoid using the same names or characters repeatedly, and make each story fresh and surprising. 
+                The goal is to entertain viewers of all ages while still leaving them with a thoughtful takeaway. 
+                Keep the story under 340 characters and make sure it's full of personality.
                 """
         return prompt
 
