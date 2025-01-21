@@ -12,3 +12,7 @@ def convert_to_srt_time(seconds):
 
 def pick_random(items):
     return random.choice(items)
+
+def separate_title_and_story(text):
+    title, story = filter(None, text.split('\n'))
+    return title, story
