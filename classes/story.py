@@ -85,6 +85,7 @@ class StoryEngine:
         # title_response = client.chat.completions.create(messages=conversation, model="gpt-3.5-turbo")
         # title = title_response.choices[0].message.content
         
+        print('The original text: ', text)
         title, story = separate_title_and_story(text)
         
         return {
