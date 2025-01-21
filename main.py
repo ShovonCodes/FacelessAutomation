@@ -14,7 +14,8 @@ output_video_file_path = f"{temp_dir_path}/output_video.mp4"
 font_name = "The Bold Font"
 
 voices = {
-    "grandpa": "NOpBlnGInO9m6vDvFkFC"
+    "grandpa": "NOpBlnGInO9m6vDvFkFC",
+    "chris_brift": "UEKYgullGqaF0keqT8Bu"
 }
 
 def clean_up():
@@ -26,7 +27,7 @@ try:
     os.makedirs(temp_dir_path, exist_ok=True)
 
     # Initiate engines
-    audio_engine = AudioEngine(temp_dir_path, voices['grandpa'])
+    audio_engine = AudioEngine(temp_dir_path, voices['chris_brift'])
     video_engine = VideoEngine(temp_dir_path)
     story_engine = StoryEngine()
     youtube_engine = YoutubeEngine(output_video_file_path)
