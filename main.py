@@ -10,6 +10,7 @@ input_video_file_path = f"{temp_dir_path}/input_video.mp4"
 input_audio_file_path = f"{temp_dir_path}/input_audio.mp3"
 input_srt_file_path = f"{temp_dir_path}/input_srt.srt"
 output_video_file_path = f"{temp_dir_path}/output_video.mp4"
+bg_music_path = f"{temp_dir_path}/bg_music.mp3"
 font_name = "The Bold Font"
 
 voices = {
@@ -32,7 +33,7 @@ try:
     youtube_engine = YoutubeEngine(output_video_file_path)
     
     # Joins existing video and creates an input video and puts it inside the temporary directory
-    # video_engine.generate_input_video()
+    video_engine.generate_input_video()
 
     # # Creates a story based on the provided category
     story_result = story_engine.generate_story()
@@ -42,10 +43,10 @@ try:
     # Converts the text story into audio and srt and stores them in the temporary directory
     timestamp = audio_engine.text_to_speech_and_timestamp(story, input_audio_file_path)
     audio_engine.timestamp_to_srt(timestamp, input_srt_file_path)
-    # audio_engine.download_bg_music()
+    audio_engine.download_bg_music()
     
     # # Combines the input video, audio and srt and generates a output video
-    video_engine.generate_output_video(input_video_file_path, input_audio_file_path, input_srt_file_path, output_video_file_path, font_name)
+    video_engine.generate_output_video(input_video_file_path, input_audio_file_path, input_srt_file_path, output_video_file_path, font_name, bg_music_path)
     
     # # Uploads the output video to YouTube
     youtube_engine.upload_video(story_title)
