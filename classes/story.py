@@ -1,68 +1,104 @@
 import os
+import random
 from openai import OpenAI
 from dotenv import load_dotenv
-from classes.utils import separate_title_and_story
 
+# Load environment variables
 load_dotenv()
 
-api_key = os.getenv('OPENAI_API_KEY')
+# Fetch the OpenAI API key from the environment variables
+api_key = "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"
 
 class StoryEngine:
-    def generate_prompt(self):
-        print('Generating prompt!')
-        prompt = f"""
-                The resulting script script should:
+    def __init__(self):
+        self.client = OpenAI(api_key=api_key)
+        self.topics = [
+            "cryptocurrency",
+            "blockchain technology",
+            "artificial intelligence",
+            "green energy solutions",
+            "NFTs",
+            "smart contracts",
+            "financial markets",
+            "DeFi applications",
+        ]
+        self.prompt_styles = [
+            "Explain {topic} using a fun analogy, like comparing it to baking a cake or playing a video game.",
+            "Show how {topic} affects everyday life by describing a practical scenario.",
+            "What’s the future of {topic}? Provide a beginner-friendly prediction in an engaging way.",
+            "Why is {topic} so popular? Explain its appeal with a fun story.",
+            "Describe a real-world application of {topic} that solves a common problem.",
+        ]
 
-                Start with a Hook: Begin with a surprising fact, a thought-provoking question, or a relatable analogy to immediately grab the viewer's attention.
-                Explain the Concept: Dive straight into the main topic, explaining it in simple, approachable terms using creative analogies, examples, or relatable comparisons. Assume the audience knows nothing about the subject.
-                Conclude with Curiosity: End with a thought, comparison, or question that leaves viewers intrigued and wanting to learn more.
-                Maintain a Fun-Professional Tone: Blend professionalism with lightness to keep it both educational and entertaining.
-                
-                Guidelines:
-                Avoid intros or outros; start directly with the hook.
-                Keep jargon to a minimum and always explain terms in simple language.
-                Be concise yet descriptive, balancing information with creativity.
-                Cover a variety of topics such as specific cryptocurrencies (Bitcoin, Ethereum, Dogecoin), technical concepts (blockchain, mining, NFTs), market phenomena (volatility, meme coins), or real-world applications (smart contracts, DeFi).
-                
-                Examples of Output Style:
-                Bitcoin: The Digital Gold Rush
-                "Did you know Bitcoin is like digital gold? Precious, scarce, but instead of being mined with shovels, it’s mined with computers solving puzzles. These puzzles make Bitcoin secure, and that's why some call it the 'gold of the internet.' Would you trade your shovel for a supercomputer?"
+    def get_random_topic(self):
+        """Randomly selects a topic from the list of topics."""
+        return random.choice(self.topics)
 
-                Blockchain: The Future's Unchangeable Diary
-                "Imagine a diary that everyone can see, but no one can alter—sounds futuristic, right? That’s what a blockchain is! It’s like a shared diary that keeps track of transactions, making sure everything is fair and secure. So, who’s ready to write in the future’s diary?"
+    def generate_prompt(self, topic):
+        """Generates a unique prompt by combining a random topic and storytelling style."""
+        style = random.choice(self.prompt_styles)
+        prompt = style.format(topic=topic)
+        guidelines = """
+        The resulting script should:
 
-                NFTs: The Era of Digital Collectibles
-                "Think of NFTs as digital collectibles, like rare baseball cards, but online. Unlike regular files you can copy, NFTs are one-of-a-kind, with proof of ownership recorded on the blockchain. Would you trade a paper card for a virtual masterpiece?"
+        - Start with a Hook: Begin with a surprising fact, a thought-provoking question, or a relatable analogy to immediately grab the viewer's attention.
+        - Explain the Concept: Dive into the topic using creative analogies and approachable language.
+        - Conclude with Curiosity: Leave viewers intrigued and wanting to learn more.
+        - Maintain a Fun-Professional Tone: Blend professionalism with lightness to keep it both educational and entertaining.
+        - Limited word: Curate a story that is fun, engaging, and informative within 400 characters.
 
-                Cryptocurrency Volatility: The Rollercoaster of Digital Wealth
-                "Why do cryptocurrencies rise and fall like a rollercoaster? It’s all about hype, demand, and memes. Take Dogecoin—it started as a joke but skyrocketed when the internet couldn’t stop talking about it. Ready for the ride?"
-                """
-        return prompt
+        Guidelines:
+        - Avoid intros or outros; start directly with the hook.
+        - Keep jargon to a minimum and always explain terms in simple language.
+        - Be concise yet descriptive, balancing information with creativity.
+        """
+        return f"{prompt}\n\n{guidelines}"
 
     def generate_story(self):
-        prompt = self.generate_prompt()
-        print('Generating story!')
-        
-        client = OpenAI(api_key=api_key)
+        """Generates a story and title based on a randomly selected topic and style."""
+        topic = self.get_random_topic()
+        prompt = self.generate_prompt(topic)
 
+        # Generate story using OpenAI API
+        print("Generating story...")
         messages = [
-            { 'role': "developer", 'content': "You are an expert storyteller and educator specializing in cryptocurrency, with the ability to simplify complex concepts for beginners. Create a unique, engaging, and beginner-friendly script for a short YouTube video (20–35 seconds) about cryptocurrency." },
             {
-                'role': "user",
-                'content': prompt,
+                "role": "system",
+                "content": f"You are an expert storyteller and educator specializing in cryptocurrency, with the ability to simplify complex concepts for beginners. Create a unique, engaging, and beginner-friendly script for a short YouTube video (around 25 seconds) about {topic}"
+            },
+            {
+                "role": "user",
+                "content": prompt,
             },
         ]
+        story_response = self.client.chat.completions.create(messages=messages, model="gpt-4o-mini")
+        story = story_response.choices[0].message.content.strip()
+
+        # Generate title and hashtags
+        print("Generating title and hashtags...")
+        title_prompt = """
+        Create a title for this story followed by relevant hashtags, without using any quotation marks, 
+        special characters, or additional text. The output should be formatted as: 
+        "Title [space] #Shorts #Hashtag1 #Hashtag2 #Hashtag3". Only include the title and hashtags.
+        """
+        messages.append({"role": "user", "content": title_prompt})
+        title_response = self.client.chat.completions.create(messages=messages, model="gpt-4o-mini")
+        title = title_response.choices[0].message.content.strip()
         
-        print('The messages: ', messages)
+        print("Topic: ", topic)
+        print("Story: ", story)
+        print("Title: ", title)
         
-        story_response = client.chat.completions.create(messages=messages, model="gpt-4o-mini")
-        print('Story response: ', story_response)
-        text = story_response.choices[0].message.content
-        
-        print('The original output: ', text)
-        title, story = separate_title_and_story(text)
-        
+
         return {
             "story": story,
-            "title": title
+            "title": title,
         }
+
+# Example usage
+if __name__ == "__main__":
+    story_engine = StoryEngine()
+    result = story_engine.generate_story()
+    print("Generated Topic:", result["topic"])
+    print("Generated Story:\n", result["story"])
+    print("Generated Title:\n", result["title"])

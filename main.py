@@ -32,14 +32,14 @@ try:
     youtube_engine = YoutubeEngine(output_video_file_path)
     
     # Joins existing video and creates an input video and puts it inside the temporary directory
-    video_engine.generate_input_video()
+    # video_engine.generate_input_video()
 
     # # Creates a story based on the provided category
     story_result = story_engine.generate_story()
     story = story_result['story']
     story_title = story_result['title']
 
-    # # Converts the text story into audio and srt and stores them in the temporary directory
+    # Converts the text story into audio and srt and stores them in the temporary directory
     timestamp = audio_engine.text_to_speech_and_timestamp(story, input_audio_file_path)
     audio_engine.timestamp_to_srt(timestamp, input_srt_file_path)
     # audio_engine.download_bg_music()
