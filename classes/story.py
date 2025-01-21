@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Fetch the OpenAI API key from the environment variables
-api_key = "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"
+api_key = os.getenv('OPENAI_API_KEY')
 
 class StoryEngine:
     def __init__(self):
