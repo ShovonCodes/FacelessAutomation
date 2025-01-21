@@ -98,7 +98,7 @@ class VideoEngine:
         self.concat_videos()
         print("Input video generation completed!")
 
-    def generate_output_video(self, video_path, audio_path, bg_music_path, srt_path, output_path, font_name):
+    def generate_output_video(self, video_path, audio_path, srt_path, output_path, font_name):
         print('Generating output video. Running ffmpeg command!')
         """
         # Current command
@@ -119,7 +119,8 @@ class VideoEngine:
         
         ffmpeg_command = [
             'ffmpeg',
-            '-i', video_path, '-i', audio_path, '-i', bg_music_path, # Inputs
+            '-i', video_path, '-i', audio_path,
+            # '-i', bg_music_path, # Inputs
             '-filter_complex', 
             f"[2]volume=0.8[aud];[1][aud]amix=inputs=2:duration=shortest:dropout_transition=0",
             '-vf', f"scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,subtitles={srt_path}:force_style='Alignment=10,MarginV=0,FontSize=22,PrimaryColour=&H000000&,OutlineColour=&HFFFFFF,FontName={font_name}:fontsdir=./fonts',tpad=stop_duration=1",
