@@ -7,46 +7,25 @@ def generate_video_url(video_number):
     return f"http://raw.githubusercontent.com/shovon588/assets/master/{video_number}.mp4",
 
 video_urls = [
-        "http://raw.githubusercontent.com/shovon588/assets/master/1.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/2.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/3.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/4.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/5.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/6.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/7.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/8.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/9.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/10.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/11.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/12.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/13.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/14.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/15.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/16.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/17.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/18.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/19.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/20.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/21.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/22.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/23.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/24.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/25.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/26.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/27.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/28.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/29.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/30.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/31.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/32.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/33.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/34.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/35.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/36.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/37.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/38.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/39.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/40.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/1.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/2.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/3.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/4.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/5.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/6.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/7.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/8.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/9.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/10.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/11.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/12.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/13.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/14.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/15.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/16.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/17.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/18.mp4",
+        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/19.mp4",
     ]
 
 class VideoEngine:
@@ -104,18 +83,6 @@ class VideoEngine:
         # Current command
         ffmpeg -i video.mp4 -i output.mp3 -vf "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,subtitles=subtitles.srt:force_style='Alignment=10,MarginV=0,FontSize=22,PrimaryColour=&H000000&,OutlineColour=&HFFFFFF,FontName=Jacquarda Bastarda 9:fontsdir=./',tpad=stop_duration=1" -c:a copy -shortest output_video.mp4 -y
         """
-
-        # Previous one, without background music
-        # ffmpeg_command = [
-        #     'ffmpeg', 
-        #     '-i', video_path, 
-        #     '-i', audio_path,
-        #     '-vf', f"scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,subtitles={srt_path}:force_style='Alignment=10,MarginV=0,FontSize=20,PrimaryColour=&H000000&,OutlineColour=&HFFFFFF,FontName={font_name}:fontsdir=./fonts',tpad=stop_duration=1", 
-        #     '-c:a', 'copy', 
-        #     '-shortest', 
-        #     output_path, 
-        #     '-y'
-        # ]
         
         ffmpeg_command = [
             'ffmpeg',
@@ -123,7 +90,7 @@ class VideoEngine:
             # '-i', bg_music_path, # Inputs
             # '-filter_complex', 
             # f"[2]volume=0.8[aud];[1][aud]amix=inputs=2:duration=shortest:dropout_transition=0",
-            '-vf', f"scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,subtitles={srt_path}:force_style='Alignment=10,MarginV=0,FontSize=22,PrimaryColour=&H000000&,OutlineColour=&HFFFFFF,FontName={font_name}:fontsdir=./fonts',tpad=stop_duration=1",
+            '-vf', f"scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,subtitles={srt_path}:force_style='Alignment=10,MarginV=0,FontSize=20,PrimaryColour=&H000000&,OutlineColour=&HFFFFFF,FontName={font_name}:fontsdir=./fonts',tpad=stop_duration=1",
             '-c:a', 'aac',  # Ensure proper audio codec
             '-shortest', output_path, '-y'
         ]
