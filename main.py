@@ -43,7 +43,6 @@ try:
     # Converts the text story into audio and srt and stores them in the temporary directory
     timestamp = audio_engine.text_to_speech_and_timestamp(story, input_audio_file_path)
     audio_engine.timestamp_to_srt(timestamp, input_srt_file_path)
-    # audio_engine.download_bg_music()
     
     # # Combines the input video, audio and srt and generates a output video
     video_engine.generate_output_video(input_video_file_path, input_audio_file_path, input_srt_file_path, output_video_file_path, font_name)
