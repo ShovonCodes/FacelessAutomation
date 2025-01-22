@@ -121,8 +121,8 @@ class VideoEngine:
             'ffmpeg',
             '-i', video_path, '-i', audio_path,
             # '-i', bg_music_path, # Inputs
-            '-filter_complex', 
-            f"[2]volume=0.8[aud];[1][aud]amix=inputs=2:duration=shortest:dropout_transition=0",
+            # '-filter_complex', 
+            # f"[2]volume=0.8[aud];[1][aud]amix=inputs=2:duration=shortest:dropout_transition=0",
             '-vf', f"scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,subtitles={srt_path}:force_style='Alignment=10,MarginV=0,FontSize=22,PrimaryColour=&H000000&,OutlineColour=&HFFFFFF,FontName={font_name}:fontsdir=./fonts',tpad=stop_duration=1",
             '-c:a', 'aac',  # Ensure proper audio codec
             '-shortest', output_path, '-y'
