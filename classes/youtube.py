@@ -21,31 +21,36 @@ credentials = Credentials(
 youtube = build('youtube', 'v3', credentials=credentials)
 
 tags = [
-    "inspirational stories", 
-    "life lessons", 
-    "moral values", 
-    "motivational quotes", 
-    "wisdom", 
-    "AI storytelling", 
-    "overcoming challenges", 
-    "positive thinking", 
-    "personal growth", 
-    "ancient wisdom", 
-    "motivational stories", 
-    "self improvement", 
-    "daily inspiration", 
-    "life advice", 
-    "timeless wisdom"
+    "cryptocurrency",
+    "Bitcoin",
+    "Ethereum",
+    "blockchain",
+    "NFTs",
+    "DeFi",
+    "crypto explained",
+    "beginner crypto guide",
+    "digital currency",
+    "meme coins",
+    "Dogecoin",
+    "altcoins",
+    "crypto mining",
+    "volatility in crypto",
+    "crypto trends",
+    "how cryptocurrency works",
+    "smart contracts",
+    "crypto investing tips",
+    "crypto education",
+    "Byte Size Crypto",
 ]
 
-description = "Welcome to Wise Grandpa! Here you'll find daily doses of wisdom, inspirational quotes, and stories with valuable life lessons. Be sure to like, comment, and subscribe for more! #shorts #wisegrandpa #motivation #daily"
+description = "#cryptocurrency #Bitcoin #Ethereum #blockchain #NFTs #cryptoexplained #cryptobasics #cryptoeducation #learncrypto #ByteSizeCrypto"
 
 class YoutubeEngine:
     def __init__(self, video_file_path):
         self.video_file_path = video_file_path
         
         
-    def upload_video(self, title):
+    def upload_video(self, title,):
         media = MediaFileUpload(self.video_file_path, chunksize=-1, resumable=True)
 
         # Prepare the request body
