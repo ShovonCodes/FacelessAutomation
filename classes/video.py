@@ -3,29 +3,26 @@ import random
 import requests
 import subprocess
 
-def generate_video_url(video_number):
-    return f"http://raw.githubusercontent.com/shovon588/assets/master/{video_number}.mp4",
-
 video_urls = [
-        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/1.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/2.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/3.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/4.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/5.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/6.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/7.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/8.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/9.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/10.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/11.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/12.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/13.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/14.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/15.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/16.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/17.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/18.mp4",
-        "http://raw.githubusercontent.com/shovon588/assets/master/ByteSizeCrypto/19.mp4",
+        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/1.mp4",
+        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/2.mp4",
+        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/3.mp4",
+        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/4.mp4",
+        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/5.mp4",
+        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/6.mp4",
+        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/7.mp4",
+        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/8.mp4",
+        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/9.mp4",
+        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/10.mp4",
+        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/11.mp4",
+        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/12.mp4",
+        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/13.mp4",
+        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/14.mp4",
+        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/15.mp4",
+        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/16.mp4",
+        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/17.mp4",
+        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/18.mp4",
+        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/19.mp4",
     ]
 
 class VideoEngine:
