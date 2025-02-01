@@ -9,11 +9,12 @@ load_dotenv()
 class YoutubeEngine:
     def __init__(self, video_file_path, refresh_token_key, tags = None, description = None):
         self.video_file_path = video_file_path
+        self.refresh_token_key = refresh_token_key
         self.tags = tags if tags else []
         self.description = description if description else ""
-        self.refresh_token_key = refresh_token_key
 
     def upload_video(self, title,):
+        print('The refresh token key: ', self.refresh_token_key)
         client_id = os.getenv('YOUTUBE_CLIENT_ID')
         client_secret = os.getenv('YOUTUBE_CLIENT_SECRET')
         refresh_token = os.getenv(self.refresh_token_key)
