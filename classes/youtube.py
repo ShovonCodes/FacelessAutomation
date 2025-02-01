@@ -18,6 +18,12 @@ class YoutubeEngine:
         client_secret = os.getenv('YOUTUBE_CLIENT_SECRET')
         refresh_token = os.getenv(self.refresh_token_key)
 
+        print('Reporting from upload_video')
+
+        if client_id: print('Client ID found')
+        if client_secret: print('Client Secret found')
+        if refresh_token: print('Refresh Token found')
+
         credentials = Credentials(
             token=None,  # No need to provide this; it will be refreshed automatically
             refresh_token=refresh_token,
