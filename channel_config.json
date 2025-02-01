@@ -11,14 +11,29 @@
       "NFTs",
       "smart contracts",
       "financial markets",
-      "DeFi applications"
+      "DeFi applications",
+      "crypto mining",
+      "stablecoins",
+      "Web3",
+      "central bank digital currencies",
+      "tokenomics",
+      "layer 2 scaling solutions",
+      "cryptocurrency regulations",
+      "privacy coins",
+      "yield farming",
+      "metaverse economy"
     ],
     "prompt_styles": [
       "Explain {topic} using a fun analogy, like comparing it to baking a cake or playing a video game.",
       "Show how {topic} affects everyday life by describing a practical scenario.",
       "What’s the future of {topic}? Provide a beginner-friendly prediction in an engaging way.",
       "Why is {topic} so popular? Explain its appeal with a fun story.",
-      "Describe a real-world application of {topic} that solves a common problem."
+      "Describe a real-world application of {topic} that solves a common problem.",
+      "Tell a thrilling detective story where solving a mystery depends on understanding {topic}.",
+      "Explain {topic} as if you were telling a bedtime story to a curious child.",
+      "Imagine {topic} as a superhero—what are its powers, and how does it save the day?",
+      "Describe {topic} through a funny conversation between two friends, one of whom knows nothing about it.",
+      "Turn {topic} into a survival adventure—how does it help someone escape a tricky situation?"
     ],
     "guidelines": "The resulting script should:\n- Start with a Hook: Begin with a surprising fact, or a relatable analogy to immediately grab the viewer's attention.\n- Explain the Concept: Dive into the topic using creative analogies and approachable language.\n- Conclude with Curiosity: Leave viewers intrigued.\n- Maintain a Fun-Professional Tone: Blend professionalism with lightness to keep it both educational and entertaining.\n- Limited word: Curate a story that is fun, engaging, and informative within 400 characters.\n\nGuidelines:\n- Avoid intros or outros; start directly with the hook.\n- Keep jargon to a minimum and always explain terms in simple language.\n- Be concise yet descriptive, balancing information with creativity.",
     "system_message": "You are an expert storyteller and educator specializing in cryptocurrency, with the ability to simplify complex concepts for beginners. Create a unique, engaging, and beginner-friendly script for a short YouTube video (around 25 seconds) about {topic}",

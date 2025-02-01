@@ -14,16 +14,9 @@ class YoutubeEngine:
         self.description = description if description else ""
 
     def upload_video(self, title,):
-        print('The refresh token key: ', self.refresh_token_key)
         client_id = os.getenv('YOUTUBE_CLIENT_ID')
         client_secret = os.getenv('YOUTUBE_CLIENT_SECRET')
         refresh_token = os.getenv(self.refresh_token_key)
-
-        print('Reporting from upload_video')
-
-        if client_id: print('Client ID found')
-        if client_secret: print('Client Secret found')
-        if refresh_token: print('Refresh Token found')
 
         credentials = Credentials(
             token=None,  # No need to provide this; it will be refreshed automatically
