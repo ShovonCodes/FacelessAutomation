@@ -6,59 +6,35 @@ from googleapiclient.http import MediaFileUpload
 
 load_dotenv()
 
-client_id = os.getenv('YOUTUBE_CLIENT_ID')
-client_secret = os.getenv('YOUTUBE_CLIENT_SECRET')
-refresh_token = os.getenv('YOUTUBE_REFRESH_TOKEN')
-
-credentials = Credentials(
-    token=None,  # No need to provide this; it will be refreshed automatically
-    refresh_token=refresh_token,
-    client_id=client_id,
-    client_secret=client_secret,
-    token_uri="https://oauth2.googleapis.com/token"
-)
-
-youtube = build('youtube', 'v3', credentials=credentials)
-
-tags = [
-    "cryptocurrency",
-    "Bitcoin",
-    "Ethereum",
-    "blockchain",
-    "NFTs",
-    "DeFi",
-    "crypto explained",
-    "beginner crypto guide",
-    "digital currency",
-    "meme coins",
-    "Dogecoin",
-    "altcoins",
-    "crypto mining",
-    "volatility in crypto",
-    "crypto trends",
-    "how cryptocurrency works",
-    "smart contracts",
-    "crypto investing tips",
-    "crypto education",
-    "Byte Size Crypto",
-]
-
-description = "#cryptocurrency #Bitcoin #Ethereum #blockchain #NFTs #cryptoexplained #cryptobasics #cryptoeducation #learncrypto #ByteSizeCrypto"
-
 class YoutubeEngine:
-    def __init__(self, video_file_path):
+    def __init__(self, video_file_path, refresh_token_key, tags = None, description = None):
         self.video_file_path = video_file_path
-        
-        
+        self.tags = tags if tags else []
+        self.description = description if description else ""
+        self.refresh_token_key = refresh_token_key
+
     def upload_video(self, title,):
+        client_id = os.getenv('YOUTUBE_CLIENT_ID')
+        client_secret = os.getenv('YOUTUBE_CLIENT_SECRET')
+        refresh_token = os.getenv(self.refresh_token_key)
+
+        credentials = Credentials(
+            token=None,  # No need to provide this; it will be refreshed automatically
+            refresh_token=refresh_token,
+            client_id=client_id,
+            client_secret=client_secret,
+            token_uri="https://oauth2.googleapis.com/token"
+        )
+        youtube = build('youtube', 'v3', credentials=credentials)
+
         media = MediaFileUpload(self.video_file_path, chunksize=-1, resumable=True)
 
         # Prepare the request body
         request_body = {
             'snippet': {
                 'title': title,
-                'description': description,
-                'tags': tags,
+                'description': self.description,
+                'tags': self.tags,
                 'categoryId': '24' # Entertainment
             },
             'status': {

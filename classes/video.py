@@ -1,35 +1,54 @@
 import os
+import math
 import random
 import requests
 import subprocess
+from dotenv import load_dotenv
 
-video_urls = [
-        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/1.mp4",
-        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/2.mp4",
-        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/3.mp4",
-        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/4.mp4",
-        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/5.mp4",
-        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/6.mp4",
-        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/7.mp4",
-        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/8.mp4",
-        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/9.mp4",
-        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/10.mp4",
-        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/11.mp4",
-        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/12.mp4",
-        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/13.mp4",
-        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/14.mp4",
-        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/15.mp4",
-        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/16.mp4",
-        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/17.mp4",
-        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/18.mp4",
-        "http://raw.githubusercontent.com/ShovonCodes/assets/master/ByteSizeCrypto/19.mp4",
-    ]
+load_dotenv()
+
+github_access_token = os.getenv('GHUB_ACCESS_TOKEN')
+
+def count_files_in_github_directory(path):
+    owner = "ShovonCodes"
+    repo = "assets"
+
+    url = f"https://api.github.com/repos/{owner}/{repo}/contents/{path}"
+    headers = {
+        "Accept": "application/vnd.github.v3+json"
+    }
+    
+    if github_access_token:
+        headers["Authorization"] = f"Bearer {github_access_token}"
+
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()  # Raise an error for HTTP issues
+
+        contents = response.json()
+        if isinstance(contents, list):
+            files = [item for item in contents if item['type'] == 'file']
+            return len(files)
+        else:
+            print("Specified path is not a directory or doesn't exist.")
+            return 0
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching directory contents: {e}")
+        return 0
 
 class VideoEngine:
-    def __init__(self, temp_dir = 'tmp'):
+    def __init__(self, asset_dir, temp_dir = 'tmp'):
         self.temp_dir = temp_dir
+        self.asset_dir = asset_dir
 
     def select_random_videos(self, count):
+        file_count = count_files_in_github_directory(self.asset_dir)
+        if file_count < count:
+            print(f"Insufficient videos available. Requested: {count}, Available: {file_count}")
+            return []
+        
+        video_urls = [f"http://raw.githubusercontent.com/ShovonCodes/assets/master/{self.asset_dir}/{i+1}.mp4" for i in range(file_count)]
         return random.sample(video_urls, count)
 
     def download_videos(self, urls):
@@ -66,9 +85,12 @@ class VideoEngine:
         ffmpeg_command = ["ffmpeg", "-f", "concat", "-safe", "0", "-i", txt_path, "-c", "copy", video_path, "-y"]
         subprocess.run(ffmpeg_command, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, check=True)
 
-    def generate_input_video(self):
+    def generate_input_video(self, video_duration_sec = 35):
         print('Generating input video')
-        urls = self.select_random_videos(7)
+
+        # Assuming each video is 5 seconds long
+        video_count = math.ceil(video_duration_sec / 5)
+        urls = self.select_random_videos(video_count)
         downloaded_files = self.download_videos(urls)
         self.generate_file_list(downloaded_files)
         self.concat_videos()
