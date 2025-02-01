@@ -40,5 +40,7 @@ jobs:
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          BYTE_SIZE_CRYPTO_REFRESH_TOKEN: ${{ secrets.BYTE_SIZE_CRYPTO_REFRESH_TOKEN }}
+          GHUB_ACCESS_TOKEN: ${{ secrets.GHUB_ACCESS_TOKEN }}
         run: |
-          python main.py
+          python ByteSizeCrypto.py
