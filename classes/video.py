@@ -96,7 +96,7 @@ class VideoEngine:
         self.concat_videos()
         print("Input video generation completed!")
 
-    def generate_output_video(self, video_path, audio_path, srt_path, output_path, font_name):
+    def generate_output_video(self, video_path, audio_path, srt_path, output_path, font_name = "The Bold Font"):
         print('Generating output video. Running ffmpeg command!')
         
         ffmpeg_command = [
