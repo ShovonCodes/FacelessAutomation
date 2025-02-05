@@ -11,6 +11,15 @@ jobs:
   run-script:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        channel: [ByteSizeCrypto]
+        include:
+          - channel: ByteSizeCrypto
+            cron: '30 14 * * *'
+          - channel: ByteSizeCrypto
+            cron: '0 19 * * *'
+
     steps:
       # Checkout the repository
       - name: Checkout repository
@@ -40,7 +49,7 @@ jobs:
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
-          BYTE_SIZE_CRYPTO_REFRESH_TOKEN: ${{ secrets.BYTE_SIZE_CRYPTO_REFRESH_TOKEN }}
           GHUB_ACCESS_TOKEN: ${{ secrets.GHUB_ACCESS_TOKEN }}
+          BYTE_SIZE_CRYPTO_REFRESH_TOKEN: ${{ secrets.BYTE_SIZE_CRYPTO_REFRESH_TOKEN }}
         run: |
-          python main.py ByteSizeCrypto
+          python main.py ${{ matrix.channel }}
