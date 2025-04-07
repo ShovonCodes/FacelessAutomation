@@ -1,10 +1,10 @@
 name: Faceless automation
 
 on:
-  # schedule:
+  schedule:
     # Run the workflow every 6 hours
-    # - cron: '30 14 * * *'  # 9:30 AM EST
-    # - cron: '0 19 * * *'   # 3:00 PM EST
+    - cron: '30 14 * * *'  # 9:30 AM EST
+    - cron: '0 19 * * *'   # 3:00 PM EST
   workflow_dispatch: # Allows manual trigger
 
 jobs:
@@ -13,11 +13,11 @@ jobs:
 
     strategy:
       matrix:
-        channel: [ByteSizeCrypto]
+        channel: [LoveAndLies]
         include:
-          - channel: ByteSizeCrypto
+          - channel: LoveAndLies
             cron: '30 14 * * *'
-          - channel: ByteSizeCrypto
+          - channel: LoveAndLies
             cron: '0 19 * * *'
 
     steps:
@@ -50,6 +50,6 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
           GHUB_ACCESS_TOKEN: ${{ secrets.GHUB_ACCESS_TOKEN }}
-          BYTE_SIZE_CRYPTO_REFRESH_TOKEN: ${{ secrets.BYTE_SIZE_CRYPTO_REFRESH_TOKEN }}
+          LOVE_AND_LIES_REFRESH_TOKEN: ${{ secrets.LOVE_AND_LIES_REFRESH_TOKEN }}
         run: |
           python main.py ${{ matrix.channel }}
